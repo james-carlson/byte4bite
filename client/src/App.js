@@ -20,31 +20,48 @@ class App extends Component {
       console.error(error);
     }
   }
+
+  addToCart = () => {
+    console.log("addToCart")
+  }
+
+
   render() {
     const { user, items } = this.state;
 
+    if (!user) return <div>loading...</div>;
     if (Object.keys(user).length === 0) return <div>loading...</div>;
 
     const userOrder = user.orders[0];
     const userItems = userOrder.items;
 
     const itemList = items.map((item, i) => {
-      return (
+      return ([
         <div key={i} className="App-item">
-          <div>{item.name}</div>
-          <div>Price: {item.price}</div>
-        </div>
+          <div>
+            <div>{item.name}</div>
+            <div>Price: {item.price}</div>
+          </div>
+          <div className="addButton">
+            <button onClick={this.addToCart} className="addButton">Add To Cart</button>
+          </div>
+        </div>,
+      ]
       )
     })
 
     return (
+
       <div className="App">
+        <div className="App-Title">GSD Pantry Providers</div>
         <header className="App-header">
-          <div>welcome, {user.firstName} {user.lastName}!</div>
+          <div>Welcome back, {user.firstName} {user.lastName}!</div>
           <div>Your cart has {userItems.length} items</div>
         </header>
         <section className="App-body">
-          {itemList}
+          <div><span className="text1">What would you like to donate today?</span></div>
+          <div className="items">{itemList}</div>
+          <div className="right"><button className="submit"><span className="text2">Click Here to Submit</span></button></div>
         </section>
       </div>
     );

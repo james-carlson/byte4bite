@@ -40,11 +40,20 @@ async function addUser(firstName, lastName, phone) {
   return { user,order };
 }
 
+async function login(phone) {
+  const user = await db.models.user.findOne({
+    where: { phone }
+  });
+
+  return user;
+}
+
 
 module.exports = {
   getItemByBarcode,
   itemScanned,
   addToOrder,
-  addUser
+  addUser,
+  login
 }
 

@@ -10,7 +10,7 @@
     const graphqlHTTP = require('express-graphql');
     const graphQLSchema = require('./graphQLSchema')
     const { sendNotification } = require('./twilio');
-    const { itemScanned, addToOrder, getItemByBarcode, addUser } = require('./queries');
+    const { itemScanned, addToOrder, getItemByBarcode, addUser, login } = require('./queries');
 
 
     app.use(bodyParser.json())
@@ -61,6 +61,12 @@
         console.log(error);
         return res.status(500).send(error)
       }
+    })
+
+    app.post('/login-user', async (req, res) => {
+      const { phone } = req.body;
+      const user = await login(phone);
+      return res.send(user)
     })
 
 

@@ -52,9 +52,9 @@ export async function getItems() {
 
 export async function loginUser(firstName, lastName, phone) {
   try {
-   const user = await instance.post('/login-user')
+   const user = await instance.post('/login-user', { phone })
 
-   if (!user) return await instance.post('/add-user');
+   if (!user) return await instance.post('/add-user', { firstName, lastName, phone });
 
    return user;
 

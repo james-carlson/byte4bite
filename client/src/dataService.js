@@ -50,3 +50,16 @@ export async function getItems() {
   }
 }
 
+export async function loginUser(firstName, lastName, phone) {
+  try {
+   const user = await instance.post('/login-user')
+
+   if (!user) return await instance.post('/add-user');
+
+   return user;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+

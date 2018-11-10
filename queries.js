@@ -20,22 +20,31 @@ const itemScanned = async (barcode) => {
   return list
 }
 
+async function getItemByBarcode(barcode) {
+  const item = db.models.item.findOne({
+    where: { barcode }
+  });
+
+  return item
+}
+
 async function addToOrder(orderId, itemId) {
+  console.log('order:', orderId, 'item', itemId)
   const order = await db.models.order.findById(orderId);
   await order.addItems(itemId);
-  const result = await db.models.order.find({
-    where: {id: orderId},
-    include: {
-      attributes: ['id'],
-      model: db.models.item,
-    },
-  });
-  return result;
+
+  return 'added';
+}
+
+async function addUser(firstName, lastName, phone) {
+  await db.models.user.create({ firstName, lastName, phone });
 }
 
 
 module.exports = {
+  getItemByBarcode,
   itemScanned,
-  addToOrder
+  addToOrder,
+  addUser
 }
 

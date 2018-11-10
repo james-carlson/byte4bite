@@ -4,13 +4,15 @@
     await require('./db')
     await require('./dbMockData');
 
-    const twilio = require('twilio');
     const app = require('express')();
     const cors = require('cors');
+    const bodyParser = require('body-parser');
     const graphqlHTTP = require('express-graphql');
     const graphQLSchema = require('./graphQLSchema')
     const { sendNotification } = require('./twilio');
+    const { itemScanned } = require('./queries');
 
+    app.use(bodyParser.json())
     app.use(cors())
     app.use('/graphql', graphqlHTTP({
       schema: graphQLSchema,
@@ -24,6 +26,15 @@
       res.status(200).send("worked");
     })
 
+    app.post('/scan', async (req, res) => {
+      try {
+        const list = await itemScanned(req.body.barcode);
+        console.log(JSON.stringify(list, null, 2))
+        res.send(list);
+      } catch (error) {
+        res.status(500).send(error)
+      }
+    })
 
 
     app.listen(process.env.PORT, function() {

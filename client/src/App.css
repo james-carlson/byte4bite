@@ -79,6 +79,8 @@
   flex-direction: row;
   align-items: baseline;
   align-content: start;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
 }
 
 .submit {

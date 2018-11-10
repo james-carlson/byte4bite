@@ -52,11 +52,15 @@ export async function getItems() {
 
 export async function loginUser(firstName, lastName, phone) {
   try {
-   const user = await instance.post('/login-user', { phone })
+   const response = await instance.post('/login-user', {phone})
+   console.log(response.data);
+   if (!response.data) {
+     console.log('hit!')
+     const resp = await instance.post('/add-user', {firstName, lastName, phone});
+     return resp.data;
+   }
 
-   if (!user) return await instance.post('/add-user', { firstName, lastName, phone });
-
-   return user;
+   return response.data;
 
   } catch (error) {
     console.error(error);

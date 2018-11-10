@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { getUserById, getItems, addToOrder } from './dataService';
-import Registration from './Registration'
 
 
 class App extends Component {
@@ -64,7 +63,7 @@ class App extends Component {
           <div className="items">{itemList}</div>
           <div className="right"><button className="submit" onClick={this.onSubmit}><span className="text2">Click Here to Submit</span></button></div>
         </section>
-      </div>]
+      </div>
     );
   }
 }

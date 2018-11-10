@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 module.exports = (async () => {
   try {
+    // Seeded database w/ test data
     const users = [
       { firstName: 'Jon', lastName: 'Myrick', phone: '9169701983' },
       { firstName: 'James', lastName: 'Carlson', phone: '8018679648' },

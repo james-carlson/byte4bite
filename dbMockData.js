@@ -10,13 +10,17 @@ module.exports = (async () => {
       { firstName: 'Keith', lastName: 'Halterman', phone: '6787785669' },
     ];
 
-    const items = [];
+    const items = [
+      { name: 'Kerns Peach Nectar', price: '1.00', barcode: '888903201072'},
+      { name: 'Red Bull', price: '1.50', barcode: '611269991000'},
+      { name: 'Langers Ruby Red', price: '2.00', barcode: '041755000532'},
+    ];
 
-    _.times(20, () => {
-      items.push({ name: faker.commerce.productName(), price: faker.commerce.price() })
-    })
+    // _.times(20, () => {
+    //   items.push({ name: faker.commerce.productName(), price: faker.commerce.price() })
+    // })
 
-    items.push({ name: faker.commerce.productName(), price: faker.commerce.price(), barcode: '888903201072'})
+    // items.push()
 
 
     await db.models.user.bulkCreate(users);
@@ -32,10 +36,9 @@ module.exports = (async () => {
     await order1.addItems(1);
     await order1.addItems(2);
     await order1.addItems(3);
-    await order1.addItems(21);
 
     const order2 = await db.models.order.findById(2);
-    await order2.addItems(21);
+    await order2.addItems(1);
 
     // const user1 = await  db.models.user.findOne({
     //   where: { id: 1 },

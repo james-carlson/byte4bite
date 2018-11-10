@@ -10,7 +10,8 @@
     const graphqlHTTP = require('express-graphql');
     const graphQLSchema = require('./graphQLSchema')
     const { sendNotification } = require('./twilio');
-    const { itemScanned } = require('./queries');
+    const { itemScanned, addToOrder } = require('./queries');
+
 
     app.use(bodyParser.json())
     app.use(cors())
@@ -20,18 +21,32 @@
       graphiql: true
     }));
 
-    app.post('/notify/:type/:phoneNumber', async (req, res) => {
-      const { type, phoneNumber } = req.params
-      await sendNotification(type, phoneNumber);
-      res.status(200).send("worked");
-    })
-
     app.post('/scan', async (req, res) => {
       try {
-        const list = await itemScanned(req.body.barcode);
+        const barcode = req.query.barcode;
+        if (!barcode) throw 'barcode was not defined';
+
+        const list = await itemScanned(barcode);
+
         console.log(JSON.stringify(list, null, 2))
-        res.send(list);
+        await Promise.all(list.map(async user => {
+          await sendNotification('1', user.phone);
+        }));
+
+        res.send('succuess');
       } catch (error) {
+        console.log(error);
+        res.status(500).send(error)
+      }
+    });
+
+    app.post('/add', async (req, res) => {
+      try {
+        const { orderId, itemId } = req.body;
+        const result = await addToOrder(orderId, itemId)
+        res.send(result);
+      } catch (error) {
+        console.log(error);
         res.status(500).send(error)
       }
     })

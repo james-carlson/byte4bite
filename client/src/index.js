@@ -26,7 +26,7 @@ ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path='/' component={Login}/>
-      <Route path='/store' component={App} />
+      <Route path='/store/:userId' component={App} />
     </Switch>
   </Router>
 , document.getElementById('root'));

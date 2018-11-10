@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getUserById, getItems } from './dataService';
-
+import { getUserById, getItems, addToOrder } from './dataService';
+import Registration from './Registration'
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const user = await getUserById(1);
+      const user = await getUserById(2);
       const items = await getItems();
 
       this.setState({ user, items });
@@ -21,8 +21,10 @@ class App extends Component {
     }
   }
 
-  addToCart = () => {
-    console.log("addToCart")
+  addToCart = async (orderId, itemId) => {
+    await addToOrder(orderId, itemId);
+    const user = await getUserById(2);
+    this.setState({ user });
   }
 
 
@@ -31,7 +33,7 @@ class App extends Component {
 
     if (!user) return <div>loading...</div>;
     if (Object.keys(user).length === 0) return <div>loading...</div>;
-
+    console.log(user);
     const userOrder = user.orders[0];
     const userItems = userOrder.items;
 
@@ -43,7 +45,7 @@ class App extends Component {
             <div>Price: {item.price}</div>
           </div>
           <div className="addButton">
-            <button onClick={this.addToCart} className="addButton">Add To Cart</button>
+            <button onClick={() => this.addToCart(userOrder.id, item.id)} className="addButton">Add To Cart</button>
           </div>
         </div>,
       ]
@@ -51,7 +53,6 @@ class App extends Component {
     })
 
     return (
-
       <div className="App">
         <div className="App-Title">GSD Pantry Providers</div>
         <header className="App-header">
@@ -61,9 +62,9 @@ class App extends Component {
         <section className="App-body">
           <div><span className="text1">What would you like to donate today?</span></div>
           <div className="items">{itemList}</div>
-          <div className="right"><button className="submit"><span className="text2">Click Here to Submit</span></button></div>
+          <div className="right"><button className="submit" onClick={this.onSubmit}><span className="text2">Click Here to Submit</span></button></div>
         </section>
-      </div>
+      </div>]
     );
   }
 }

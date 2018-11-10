@@ -1,5 +1,5 @@
 const axios = require('axios');
-const instance = axios.create({ baseURL: 'http://localhost:8080' })
+const instance = axios.create({ baseURL: 'https://32226816.ngrok.io' })
 
 async function executeQuery(query) {
   return instance.post('/graphql', { query });
@@ -63,3 +63,12 @@ export async function loginUser(firstName, lastName, phone) {
   }
 }
 
+export async function addToOrder(orderId, itemId) {
+  try {
+    const result = await instance.post('/add', {orderId, itemId})
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.log(err)
+  }
+}

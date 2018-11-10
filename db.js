@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = (async () => {
   try {
     // create db instance
-    const db = new Sequelize('testdb', 'jonmyrick', 'none', {
+    const db = new Sequelize(process.env.DB_CONNECTION_STRING, {
       dialect: 'postgres',
       operatorsAliases: false,
       logging: false,

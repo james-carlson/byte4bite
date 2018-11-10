@@ -14,6 +14,7 @@ module.exports = (async () => {
     const User = db.define('user', {
       firstName: Sequelize.STRING,
       lastName: Sequelize.STRING,
+      phone: Sequelize.STRING
     })
 
     const Order = db.define('order', {
@@ -23,6 +24,7 @@ module.exports = (async () => {
     const Item = db.define('item', {
       name: Sequelize.STRING,
       price: Sequelize.STRING,
+      barcode: Sequelize.STRING,
     })
 
     User.hasMany(Order);

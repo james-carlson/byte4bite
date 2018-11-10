@@ -10,7 +10,7 @@
     const graphqlHTTP = require('express-graphql');
     const graphQLSchema = require('./graphQLSchema')
     const { sendNotification } = require('./twilio');
-    const { itemScanned, addToOrder } = require('./queries');
+    const { itemScanned, addToOrder, getItemByBarcode, addUser } = require('./queries');
 
 
     app.use(bodyParser.json())
@@ -24,19 +24,20 @@
     app.post('/scan', async (req, res) => {
       try {
         const barcode = req.query.barcode;
+        const location = req.query.location;
         if (!barcode) throw 'barcode was not defined';
 
         const list = await itemScanned(barcode);
-
+        const item = await getItemByBarcode(barcode);
         console.log(JSON.stringify(list, null, 2))
         await Promise.all(list.map(async user => {
-          await sendNotification('1', user.phone);
+          await sendNotification(location, user, item);
         }));
 
-        res.send('succuess');
+        return res.send(item.name);
       } catch (error) {
         console.log(error);
-        res.status(500).send(error)
+        return res.status(500).send(error)
       }
     });
 
@@ -44,10 +45,21 @@
       try {
         const { orderId, itemId } = req.body;
         const result = await addToOrder(orderId, itemId)
-        res.send(result);
+        return res.send(result);
       } catch (error) {
         console.log(error);
-        res.status(500).send(error)
+        return res.status(500).send(error)
+      }
+    })
+
+    app.post('/add-user', async (req, res) => {
+      try {
+        const { firstName, lastName, phone} = req.body;
+        const result = await addUser(firstName, lastName, phone)
+        return res.send({userId: result.user.id, orderId: result.order.id});
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error)
       }
     })
 

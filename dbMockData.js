@@ -5,15 +5,15 @@ const _ = require('lodash');
 module.exports = (async () => {
   try {
     const users = [];
-    const products = [];
+    const items = [];
 
     _.times(10, () => {
       users.push({ firstName: faker.name.firstName(), lastName: faker.name.lastName() })
-      products.push({ name: faker.commerce.productName(), price: faker.commerce.price() })
+      items.push({ name: faker.commerce.productName(), price: faker.commerce.price() })
     })
 
     await db.models.user.bulkCreate(users);
-    await db.models.product.bulkCreate(products);
+    await db.models.item.bulkCreate(items);
     await db.models.order.bulkCreate([
       { complete: false, userId: 1 },
       { complete: false, userId: 2 },
@@ -22,9 +22,9 @@ module.exports = (async () => {
 
 
     const order1 = await db.models.order.findById(1);
-    await order1.addProducts(1);
-    await order1.addProducts(2);
-    await order1.addProducts(3);
+    await order1.addItems(1);
+    await order1.addItems(2);
+    await order1.addItems(3);
 
     // const user1 = await  db.models.user.findOne({
     //   where: { id: 1 },
@@ -33,7 +33,7 @@ module.exports = (async () => {
     //     model: db.models.order,
     //     attributes: ['id', 'complete'],
     //     include: {
-    //       model: db.models.product,
+    //       model: db.models.items,
     //       attributes: ['id', 'name', 'price'],
     //     }
     //   }
@@ -51,23 +51,23 @@ module.exports = (async () => {
     //   where: { id: 1 },
     //   attributes: ['id', 'complete'],
     //   include: [{
-    //     model: Product,
+    //     model: Items,
     //     attributes: ['id', 'name'],
     //   }],
     // });
 
-    //const products = await order1.getProducts();
-    // const stuff = products.map(e => e.toJSON());
-    // console.log('products', stuff);
+    //const items = await order1.getItems();
+    // const stuff = items.map(e => e.toJSON());
+    // console.log('items', stuff);
 
-    // const products = await Product.findAll({
+    // const items = await Item.findAll({
     //   attributes: ['id', 'name'],
     //   include: [{all: true}]
     // });
 
     // const data = orders.map((orderDoc) => {
     //   const order = orderDoc.toJSON();
-    //   order.products = order.products.map(product => product.id);
+    //   order.items = order.items.map(item => item.id);
     //   return order;
     // })
 

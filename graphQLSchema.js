@@ -42,7 +42,7 @@ const User = new GraphQLObjectType({
 
 const Order = new GraphQLObjectType({
   name: 'Order',
-  description: 'represents a user',
+  description: 'represents an order',
   fields() {
     return {
       id: {
@@ -63,37 +63,37 @@ const Order = new GraphQLObjectType({
           return order.getUser();
         }
       },
-      products: {
-        type: GraphQLList(Product),
+      items: {
+        type: GraphQLList(Item),
         resolve(order) {
-          return order.getProducts();
+          return order.getItems();
         }
       },
     }
   }
 });
 
-const Product = new GraphQLObjectType({
-  name: 'Product',
-  description: 'represents a user',
+const Item = new GraphQLObjectType({
+  name: 'Item',
+  description: 'represents an Item',
   fields() {
     return {
       id: {
         type: GraphQLInt,
-        resolve(product) {
-          return product.id;
+        resolve(item) {
+          return item.id;
         }
       },
       name: {
         type: GraphQLString,
-        resolve(product) {
-          return product.name;
+        resolve(item) {
+          return item.name;
         }
       },
       price: {
         type: GraphQLString,
-        resolve(product) {
-          return product.price;
+        resolve(item) {
+          return item.price;
         }
       },
     }
@@ -126,15 +126,15 @@ const Query = new GraphQLObjectType({
           return db.models.order.findAll({ where: args })
         }
       },
-      products: {
-        type: GraphQLList(Order),
+      items: {
+        type: GraphQLList(Item),
         args: {
           id: { type: GraphQLInt },
           name: { type: GraphQLString },
           price: { type: GraphQLString },
         },
         resolve(root, args) {
-          return db.models.product.findAll({ where: args })
+          return db.models.item.findAll({ where: args })
         }
       },
     }

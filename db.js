@@ -20,14 +20,14 @@ module.exports = (async () => {
       complete: Sequelize.BOOLEAN
     })
 
-    const Product = db.define('product', {
+    const Item = db.define('item', {
       name: Sequelize.STRING,
       price: Sequelize.STRING,
     })
 
     User.hasMany(Order);
     Order.belongsTo(User)
-    Order.belongsToMany(Product, { through: 'ordersProducts' });
+    Order.belongsToMany(Item, { through: 'ordersItems' });
 
 
     await db.sync({force: true}) // force: true will drop the table if it already exists

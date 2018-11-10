@@ -34,10 +34,10 @@
           await sendNotification(location, user, item);
         }));
 
-        res.send(item.name);
+        return res.send(item.name);
       } catch (error) {
         console.log(error);
-        res.status(500).send(error)
+        return res.status(500).send(error)
       }
     });
 
@@ -45,21 +45,21 @@
       try {
         const { orderId, itemId } = req.body;
         const result = await addToOrder(orderId, itemId)
-        res.send(result);
+        return res.send(result);
       } catch (error) {
         console.log(error);
-        res.status(500).send(error)
+        return res.status(500).send(error)
       }
     })
 
     app.post('/add-user', async (req, res) => {
       try {
         const { firstName, lastName, phone} = req.body;
-        const userId = await addUser(firstName, lastName, phone)
-        res.send(userId);
+        const result = await addUser(firstName, lastName, phone)
+        return res.send({userId: result.user.id, orderId: result.order.id});
       } catch (error) {
         console.log(error);
-        res.status(500).send(error)
+        return res.status(500).send(error)
       }
     })
 

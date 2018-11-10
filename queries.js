@@ -37,7 +37,7 @@ async function addToOrder(orderId, itemId) {
 async function addUser(firstName, lastName, phone) {
   const user = await db.models.user.create({ firstName, lastName, phone });
   const order = await db.models.order.create({ complete: false, userId: user.id });
-  return { user,order };
+  return { user, order };
 }
 
 async function login(phone) {

@@ -21,11 +21,9 @@ const itemScanned = async (barcode) => {
 }
 
 async function getItemByBarcode(barcode) {
-  const item = db.models.item.findOne({
+  return await db.models.item.findOne({
     where: { barcode }
   });
-
-  return item
 }
 
 async function addToOrder(orderId, itemId) {
@@ -37,7 +35,9 @@ async function addToOrder(orderId, itemId) {
 }
 
 async function addUser(firstName, lastName, phone) {
-  await db.models.user.create({ firstName, lastName, phone });
+  const user = await db.models.user.create({ firstName, lastName, phone });
+  const order = await db.models.order.create({ complete: false, userId: user.id });
+  return { user,order };
 }
 
 

@@ -17,13 +17,13 @@ const sendNotification = async (location, user, item) => {
   let body = '';
   switch (location) {
     case '0' :
-      body = `1. ${user.firstName}, Your recent donation, ${item.name} has been used to purchase something for a Granite School District food pantry!`
+      body = `1. ${user.firstName}, Your recent donation, was used to purchase 21lbs of ${item.name} for hungry youngsters in the Granite School District! Donations go 7 times further with ganite kids :)`
       break;
       case '1' :
-      body = `2. ${user.firstName}, The ${item.name} you helped by has been delivered and is now available for hungry families in the Granite School District!`
+      body = `2. ${user.firstName}, The ${item.name} you dontated has arrived at Lehi Elementary and is now available for hungry youngsters!`
       break;
       case '2' :
-      body = `3. ${user.firstName}, Someone just left the Granite School District pantry with the ${item.name} you supplied! Thank you for your help!`
+      body = `3. ${user.firstName}, The ${item.name} you supplied to Ganite Kids just went to feed a family of four! A huge thankyou from Ganite Kids!`
       break;
 
   }

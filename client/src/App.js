@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { getUserById, getItems, addToOrder } from './dataService';
-import Registration from './Registration'
 
 
 class App extends Component {

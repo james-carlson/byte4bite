@@ -4,19 +4,32 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { loginUser } from './dataService';
 
 class Login extends React.Component {
-  handleSubmit() {
 
+  state = {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  }
+
+  handleSubmit = () =>  {
+    loginUser(this.state.firstName, this.state.lastName, this.state.phoneNumber)
+      .then(resp => {
+        console.log(this.props)
+        console.log(resp)//this.props.location.history.push()
+      })
   }
 
   render() {
     return (
       <div>
-        <input />
-        <input />
-        <input />
-        <div>Submit</div>
+        <div>Please enter you info</div>
+        <input value={this.firstName} onChange={ e => this.setState({firstName: e.target.value}) }/>
+        <input value={this.lastName} onChange={ e => this.setState({lastName: e.target.value}) }/>
+        <input value={this.phoneNumber} onChange={ e => this.setState({phoneNumber: e.target.value}) }/>
+        <div onClick={this.handleSubmit} >Submit</div>
       </div>
     )
   }

@@ -64,7 +64,7 @@ class App extends Component {
           <div className="items">{itemList}</div>
           <div className="right"><button className="submit" onClick={this.onSubmit}><span className="text2">Click Here to Submit</span></button></div>
         </section>
-      </div>]
+      </div>
     );
   }
 }

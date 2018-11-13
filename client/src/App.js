@@ -11,7 +11,6 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      console.log(this.props)
       const user = await getUserById(this.props.match.params.userId);
       const items = await getItems();
 

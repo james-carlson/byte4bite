@@ -12,10 +12,13 @@ module.exports = (async () => {
     ];
 
     const items = [
-      { name: 'Kerns Peach Nectar', price: '5.00', barcode: '888903201072'},
-      { name: 'Red Bull', price: '10.0', barcode: '611269991000'},
-      { name: 'Langers Ruby Red', price: '25.00', barcode: '041755000532'},
-      { name: 'Trail mix', price: '100.00', barcode: '09661936314'},
+      // { name: 'Kerns Peach Nectar', price: '5.00', barcode: '888903201072'},
+      // { name: 'Red Bull', price: '10.0', barcode: '611269991000'},
+      // { name: 'Langers Ruby Red', price: '25.00', barcode: '041755000532'},
+      // { name: 'Trail mix', price: '100.00', barcode: '09661936314'},
+      { name: 'Lemonade', price: '1.38', barcode: '025000053818'},
+      { name: 'Granola Bars', price: '1.76', barcode: '078742228167'},
+      { name: 'Breakfast Biscuits', price: '5.00', barcode: '016000446472'},
     ];
 
 

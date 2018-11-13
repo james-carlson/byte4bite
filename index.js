@@ -14,7 +14,7 @@
 
 
     app.use(bodyParser.json())
-    app.use(cors({ origin: ['https://b696510c.ngrok.io', 'http://localhost:3000']}))
+    app.use(cors({ origin: ['http://localhost:3000', 'https://8b08df7f.ngrok.io']}))
     app.use('/graphql', graphqlHTTP({
       schema: graphQLSchema,
       pretty: true,

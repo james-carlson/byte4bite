@@ -11,7 +11,8 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const user = await getUserById(2);
+      console.log(this.props)
+      const user = await getUserById(this.props.match.params.userId);
       const items = await getItems();
 
       this.setState({ user, items });
@@ -22,7 +23,7 @@ class App extends Component {
 
   addToCart = async (orderId, itemId) => {
     await addToOrder(orderId, itemId);
-    const user = await getUserById(2);
+    const user = await getUserById(this.props.match.params.userId);
     this.setState({ user });
   }
 

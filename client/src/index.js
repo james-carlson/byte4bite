@@ -17,19 +17,25 @@ class Login extends React.Component {
   handleSubmit = () =>  {
     loginUser(this.state.firstName, this.state.lastName, this.state.phoneNumber)
       .then(resp => {
-        console.log(this.props)
-        console.log(resp)//this.props.location.history.push()
+        console.log('Props' + this.props)
+        console.log('UserID' + resp)
+        this.props.history.push('/store/' + resp)
       })
   }
 
   render() {
     return (
       <div>
-        <div>Please enter you info</div>
+        <label>First Name</label>
         <input value={this.firstName} onChange={ e => this.setState({firstName: e.target.value}) }/>
+        <br/>
+        <label>Last Name</label>
         <input value={this.lastName} onChange={ e => this.setState({lastName: e.target.value}) }/>
+        <br/>
+        <label>Phone Number</label>
         <input value={this.phoneNumber} onChange={ e => this.setState({phoneNumber: e.target.value}) }/>
-        <div onClick={this.handleSubmit} >Submit</div>
+        <br/>
+        <button onClick={this.handleSubmit} >Submit</button>
       </div>
     )
   }

@@ -21,9 +21,11 @@ const itemScanned = async (barcode) => {
 }
 
 async function getItemByBarcode(barcode) {
-  return await db.models.item.findOne({
+  const item = await db.models.item.findOne({
     where: { barcode }
   });
+
+  return  item;
 }
 
 async function addToOrder(orderId, itemId) {

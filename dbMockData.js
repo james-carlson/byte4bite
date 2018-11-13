@@ -8,7 +8,7 @@ module.exports = (async () => {
     const users = [
       { firstName: 'Jon', lastName: 'Myrick', phone: '9169701983' },
       { firstName: 'James', lastName: 'Carlson', phone: '8018679648' },
-      // { firstName: 'Keith', lastName: 'Halterman', phone: '6787785669' },
+      { firstName: 'Keith', lastName: 'Halterman', phone: '6787785669' },
     ];
 
     const items = [
